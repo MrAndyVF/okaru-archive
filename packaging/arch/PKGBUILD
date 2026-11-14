@@ -1,0 +1,31 @@
+# okaru-archive: compila la rama main del checkout (OKARU_ARCHIVE_REPO, por defecto ~/Projects/okaru-archive).
+pkgname=okaru-archive
+pkgver=1.0.0
+pkgrel=1
+pkgdesc='OKARU (郁): el gestor de comprimidos'
+arch=(x86_64)
+url='https://github.com/MrAndyVF/okaru-archive'
+license=(MIT)
+# Sin ABI estable: depende de la versión exacta del núcleo con el que se compiló (la instalada al compilar).
+_core=$(pacman -Q okaru-core 2>/dev/null | cut -d' ' -f2)
+depends=("okaru-core${_core:+=$_core}" libarchive libsecret)
+makedepends=(meson ninja pkgconf okaru-core tomlplusplus nlohmann-json) # nlohmann-json: la piden las cabeceras del núcleo (okaru-core <= 1.2.4 no la declaraba)
+optdepends+=('7zip: 7z/rar con contraseña, 7z cifrados y volúmenes / password-protected 7z/rar, encrypted 7z and volumes')
+options=('!debug' '!lto')
+source=("okaru-archive::git+file://${OKARU_ARCHIVE_REPO:-$HOME/Projects/okaru-archive}#branch=main")
+sha256sums=(SKIP)
+
+pkgver() {
+  cd okaru-archive
+  git describe --long --tags --abbrev=9 --match 'v*' | sed 's/^v//; s/-\([0-9]*\)-g/.r\1.g/'
+}
+
+build() {
+  arch-meson okaru-archive build -Dtests=disabled
+  meson compile -C build
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+  install -Dm644 okaru-archive/LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+}
