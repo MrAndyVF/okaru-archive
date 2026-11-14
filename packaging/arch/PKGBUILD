@@ -1,4 +1,4 @@
-# okaru-archive: compila la rama main del checkout (OKARU_ARCHIVE_REPO, por defecto ~/Projects/okaru-archive).
+# okaru-archive: compila la rama main del checkout (OKARU_ARCHIVE_REPO, por defecto ~/Projects/okaru-project/okaru-archive).
 pkgname=okaru-archive
 pkgver=1.0.0
 pkgrel=1
@@ -12,7 +12,7 @@ depends=("okaru-core${_core:+=$_core}" libarchive libsecret)
 makedepends=(meson ninja pkgconf okaru-core tomlplusplus nlohmann-json) # nlohmann-json: la piden las cabeceras del núcleo (okaru-core <= 1.2.4 no la declaraba)
 optdepends+=('7zip: 7z/rar con contraseña, 7z cifrados y volúmenes / password-protected 7z/rar, encrypted 7z and volumes')
 options=('!debug' '!lto')
-source=("okaru-archive::git+file://${OKARU_ARCHIVE_REPO:-$HOME/Projects/okaru-archive}#branch=main")
+source=("okaru-archive::git+file://${OKARU_ARCHIVE_REPO:-$HOME/Projects/okaru-project/okaru-archive}#branch=main")
 sha256sums=(SKIP)
 
 pkgver() {
