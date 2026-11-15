@@ -1,6 +1,6 @@
 # okaru-archive: compila la rama main del checkout (OKARU_ARCHIVE_REPO, por defecto ~/Projects/okaru-project/okaru-archive).
 pkgname=okaru-archive
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=1
 pkgdesc='OKARU (郁): el gestor de comprimidos'
 arch=(x86_64)
