@@ -934,7 +934,8 @@ namespace okaru::archive {
             .glyph = "dots-vertical",
             .variant = ButtonVariant::Ghost,
             .tooltip = tr("apps.archive.menu.title"),
-            .onClick = [this, scale] { openMainMenu(m_width - 260.0F * scale, 48.0F * scale); },
+            // Pegado al borde derecho, bajo el botón: buildMenu acota x para que el menú quepa entero.
+            .onClick = [this, scale] { openMainMenu(m_width, 48.0F * scale); },
         })
     );
     return header;
@@ -1075,7 +1076,7 @@ namespace okaru::archive {
         ui::box({
             .fill = colorSpecFromRole(ColorRole::SurfaceContainerHigh),
             .border = colorSpecFromRole(ColorRole::OutlineVariant),
-            .borderWidth = 1.0F,
+            .borderWidth = Style::borderWidth,
             .radius = Style::radiusLg * scale,
             .width = menuWidth,
             .height = menuHeight,
