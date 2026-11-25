@@ -1119,6 +1119,8 @@ namespace okaru::archive {
         .padding = Style::spaceLg * scale,
         .fill = colorSpecFromRole(ColorRole::SurfaceContainerHigh),
         .radius = Style::radiusLg * scale,
+        .border = colorSpecFromRole(ColorRole::Primary), // OKARU: como los paneles
+        .borderWidth = Style::borderWidth,
         .width = std::min(500.0F * scale, width - 32.0F),
     });
     const auto heading = [&](std::string text) {
